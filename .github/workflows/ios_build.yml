@@ -7,20 +7,21 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Set up Ruby
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7
+        ruby-version: '3.0'  # Specify a version that is available
 
     - name: Install CocoaPods
       run: sudo gem install cocoapods
 
     - name: Install Flutter
-      uses: subosito/flutter-action@v1
+      uses: subosito/flutter-action@v2
       with:
-        flutter-version: '2.2.3'
+        flutter-version: 'stable'  # Use 'stable' to get the latest stable version
 
     - name: Flutter Pub Get
       run: flutter pub get
