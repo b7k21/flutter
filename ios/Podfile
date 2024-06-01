@@ -1,0 +1,61 @@
+platform :ios, '10.0'
+
+# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def parse_KV_file(file, delimiter = /[=:\s]+/)
+  file_abs_path = File.expand_path(file)
+  if !File.exist?(file_abs_path)
+    return [];
+  end
+  File.foreach(file_abs_path) do |line|
+    next if line.start_with?('#')
+    key, value = line.split(delimiter, 2)
+    if value.nil?
+      puts "Ignoring malformed line: #{line}"
+      next
+    end
+    value.strip!
+    ENV[key] = value
+  end
+end
+
+parse_KV_file("../.env")
+
+flutter_root = File.expand_path("../..")
+eval(File.read(File.join(flutter_root, "packages", "flutter_tools", "bin", "podhelper.rb")), binding)
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+
+  # Add the Firebase pod for Google Analytics
+  pod 'Firebase/Analytics'
+
+  # Add other Firebase pods here
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
+
+  target 'RunnerTests' do
+    inherit! :search_paths
+  end
+
+  # Flutter Pod
+  install_all_flutter_pods(flutter_root)
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+    target.build_configurations.each do |config|
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
+    end
+  end
+end

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "437179776625",
+    "project_id": "asymmetric-ray-382508",
+    "storage_bucket": "asymmetric-ray-382508.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437179776625:android:7bc6fbe95c766ecd40e5d0",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7fHrDvL19tZ33bzXmVLS6C8VvcHW4Hig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
