@@ -38,8 +38,11 @@ jobs:
       run: |
         flutter pub get
         if [ $? -ne 0 ]; then
+          echo "pub get failed. Displaying pubspec.lock:"
           cat pubspec.lock
+          echo "Displaying pubspec.yaml:"
           cat pubspec.yaml
+          exit 1
         fi
 
     - name: Install Pods
