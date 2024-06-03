@@ -21,24 +21,18 @@ jobs:
     - name: Download and Install Dart SDK
       run: |
         mkdir -p $HOME/.dart-sdk
-        wget https://storage.googleapis.com/dart-archive/channels/stable/release/2.19.0/sdk/dartsdk-macos-arm64-release.zip
-        unzip dartsdk-macos-arm64-release.zip -d $HOME/.dart-sdk
-        echo "Dart SDK installed to $HOME/.dart-sdk"
-
-    - name: Set up Dart SDK Path
-      run: |
-        echo "Adding Dart SDK to PATH"
-        echo "$HOME/.dart-sdk/dart-sdk/bin" >> $GITHUB_PATH
+        curl -o dartsdk.zip https://storage.googleapis.com/dart-archive/channels/stable/release/2.19.0/sdk/dartsdk-macos-arm64-release.zip
+        unzip dartsdk.zip -d $HOME/.dart-sdk
         export PATH="$HOME/.dart-sdk/dart-sdk/bin:$PATH"
-        echo "Dart SDK path set"
-
-    - name: Print Dart version
-      run: dart --version
+        echo "export PATH=\"$HOME/.dart-sdk/dart-sdk/bin:\$PATH\"" >> $GITHUB_ENV
 
     - name: Install Flutter
       uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.0.5'
+
+    - name: Print Dart version
+      run: dart --version
 
     - name: Print Flutter version
       run: flutter --version
