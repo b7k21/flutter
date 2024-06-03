@@ -18,12 +18,11 @@ jobs:
     - name: Install CocoaPods
       run: sudo gem install cocoapods
 
-    - name: Install Dart SDK
+    - name: Download and Install Dart SDK
       run: |
-        brew tap dart-lang/dart
-        brew install dart@2.19
-        echo 'export PATH="/usr/local/opt/dart@2.19/bin:$PATH"' >> ~/.zshrc
-        source ~/.zshrc
+        wget https://storage.googleapis.com/dart-archive/channels/stable/release/2.19.0/sdk/dartsdk-macos-arm64-release.zip
+        unzip dartsdk-macos-arm64-release.zip -d $HOME/.dart-sdk
+        echo 'export PATH="$HOME/.dart-sdk/dart-sdk/bin:$PATH"' >> $GITHUB_ENV
 
     - name: Install Flutter
       uses: subosito/flutter-action@v2
