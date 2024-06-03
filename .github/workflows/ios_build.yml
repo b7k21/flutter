@@ -18,10 +18,12 @@ jobs:
     - name: Install CocoaPods
       run: sudo gem install cocoapods
 
-    - name: Set up Dart
-      uses: dart-lang/setup-dart@v1
-      with:
-        sdk: '2.19.0'
+    - name: Install Dart SDK
+      run: |
+        brew tap dart-lang/dart
+        brew install dart@2.19
+        echo 'export PATH="/usr/local/opt/dart@2.19/bin:$PATH"' >> ~/.zshrc
+        source ~/.zshrc
 
     - name: Install Flutter
       uses: subosito/flutter-action@v2
